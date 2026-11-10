@@ -1,0 +1,72 @@
+[
+  {
+    "doc_id": "lei13460",
+    "arquivo": "brutos/lei_13460_2017_usuario_servico_publico.txt",
+    "titulo": "Lei nº 13.460/2017 — Código de Defesa do Usuário do Serviço Público",
+    "tipo": "lei_federal",
+    "orgao_emissor": "Presidência da República",
+    "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm",
+    "data_publicacao": "2017-06-26",
+    "data_coleta": "2026-11-05",
+    "escopo_coletado": "Trechos selecionados: arts. 1º, 2º, 4º, 5º, 6º, 7º (caput, §1º e §2º), 9º, 10, 10-A, 11, 12 e 16",
+    "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+    "tema": ["serviço público", "ouvidoria", "direitos do usuário"],
+    "ficticio": false
+  },
+  {
+    "doc_id": "cdc",
+    "arquivo": "brutos/cdc_lei_8078_1990.txt",
+    "titulo": "Lei nº 8.078/1990 — Código de Defesa do Consumidor (texto compilado)",
+    "tipo": "lei_federal",
+    "orgao_emissor": "Presidência da República",
+    "url_fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+    "data_publicacao": "1990-09-11",
+    "data_coleta": "2026-11-05",
+    "escopo_coletado": "Trechos selecionados: arts. 6º, 18 (caput e §§1º a 3º), 26, 42 e 49",
+    "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+    "tema": ["consumidor", "arrependimento", "vício do produto", "cobrança indevida"],
+    "ficticio": false
+  },
+  {
+    "doc_id": "lai",
+    "arquivo": "brutos/lai_lei_12527_2011.txt",
+    "titulo": "Lei nº 12.527/2011 — Lei de Acesso à Informação (LAI)",
+    "tipo": "lei_federal",
+    "orgao_emissor": "Presidência da República",
+    "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm",
+    "data_publicacao": "2011-11-18",
+    "data_coleta": "2026-11-05",
+    "escopo_coletado": "Trechos selecionados: arts. 10, 11, 12 e 15",
+    "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+    "tema": ["transparência", "pedido de informação", "recurso"],
+    "ficticio": false
+  },
+  {
+    "doc_id": "lgpd",
+    "arquivo": "brutos/lgpd_lei_13709_2018.txt",
+    "titulo": "Lei nº 13.709/2018 — Lei Geral de Proteção de Dados Pessoais (LGPD, texto compilado)",
+    "tipo": "lei_federal",
+    "orgao_emissor": "Presidência da República",
+    "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm",
+    "data_publicacao": "2018-08-14",
+    "data_coleta": "2026-11-05",
+    "escopo_coletado": "Trechos selecionados: arts. 5º (incisos I a V), 17 e 18",
+    "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+    "tema": ["dados pessoais", "direitos do titular", "privacidade"],
+    "ficticio": false
+  },
+  {
+    "doc_id": "guia_vila_esperanca",
+    "arquivo": "brutos/documento_teste_ficticio_guia_vila_esperanca.txt",
+    "titulo": "Guia de Atendimento ao Cidadão — Prefeitura de Vila Esperança (DOCUMENTO-TESTE FICTÍCIO)",
+    "tipo": "orientacao_municipal_ficticia",
+    "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+    "url_fonte": null,
+    "data_publicacao": "2026-11-05",
+    "data_coleta": "2026-11-05",
+    "escopo_coletado": "Documento completo, criado pelo grupo. Contém dados pessoais INVENTADOS (CPFs com dígito verificador inválido, e-mails no domínio reservado example.com) para provar a anonimização. Os números de emergência (190, 192, 193, 199, 180, 100, 188) são os canais nacionais reais.",
+    "licenca": "Criado pelo grupo para fins acadêmicos",
+    "tema": ["ouvidoria municipal", "urgência", "emergência", "iluminação pública"],
+    "ficticio": true
+  }
+]

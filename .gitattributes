@@ -1,0 +1,5 @@
+# Texto sempre com LF no repositório (os .jsonl ficam idênticos em qualquer sistema)
+* text=auto eol=lf
+*.pdf binary
+*.docx binary
+*.png binary

@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Bônus LoRA: pesos e checkpoints são grandes e regeneráveis pelo notebook
+lora_*/
+cidadaobot_lora/
+cidadaobot_lora.zip
+# resultados gravados na raiz pelo notebook (a cópia versionada fica em notebook/resultados_lora_local/)
+/resultados_*.json
+
+# Configuração local do editor/assistente
+.claude/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,84 @@
+<html><body>
+<h1>Fábrica de Corpus CitizenTech</h1>
+<p class="sub">Global Solution 2026.2 · FIAP · Processamento de Linguagem Natural, Chatbots &amp; Virtual Agents (Disciplina 08)<br/>Integrantes: (preencher nome e RM)</p>
+
+<h2>1. Problema, enunciado e proposta</h2>
+<p><b>Enunciado:</b> desenvolver uma ferramenta que permita <i>subir diversos tipos de documentos e textos</i>, realize a <i>limpeza e normalização</i> dos dados e permita criar <i>três tipos de corpus (conversacional, perguntas e respostas, texto puro)</i> para o fine-tuning de uma LLM de pequeno porte.</p>
+<p>Um modelo pequeno que orienta o cidadão só é tão bom quanto os dados com que foi ajustado. A <b>Fábrica de Corpus</b> recebe documentos públicos em TXT, Markdown, HTML, Word e PDF e devolve os três corpus em <code>.jsonl</code>. Na saída não sobra nenhum dado pessoal, e toda resposta fica presa a um trecho literal do documento. O uso é por uma interface Streamlit (upload, revisão e download) ou pela linha de comando, sem chave de API. A regra do semestre orientou o desenho: <b>forma se treina, fato se consulta</b>. O treino ensina o <i>comportamento</i> do CidadãoBot (ler o CONTEXTO, citar a fonte, linguagem simples, "não sei", recusar e encaminhar urgências), e o <i>fato</i> chega pelo contexto recuperado (RAG).</p>
+
+<h2>2. Pipeline</h2>
+<p><b>Upload → Limpeza e normalização → Anonimização → Chunking → Geração (automática + curada) → 3 corpus → Auditoria → Avaliação.</b></p>
+<ul>
+<li><b>Leitores por formato</b> (<code>fabrica/leitores.py</code>): todos convertem para um texto padrão, com títulos como <code>## </code> e tachado como <code>~~revogado~~</code>. No <b>HTML</b>, saem menu, scripts e rodapé. No <b>DOCX</b>, os estilos de título e o tachado do Word são lidos direto do XML, sem bibliotecas externas. No <b>PDF</b>, saem o cabeçalho e o rodapé que se repetem nas páginas e a numeração "Página X de Y", a hifenização é desfeita ("ali-/mentos" → "alimentos") e as linhas quebradas no meio da frase são juntadas. Os metadados (título, tipo lei/documento, data de coleta) são inferidos e podem ser sobrescritos por um <code>.meta.json</code>.</li>
+<li><b>Limpeza e normalização</b>: trechos revogados, assinaturas (só em leis), notas "(Incluído pela…)", navegação de site, incisos vetados; Unicode NFC, aspas, marcadores, caracteres invisíveis e de controle, "1°" → "1º". Nas 4 leis: 3 revogados, 44 linhas de assinatura, 31 anotações, 26 linhas de site e 2 incisos vetados.</li>
+<li><b>Chunking</b>: lei → 1 chunk por artigo (artigos longos repetem o caput); documento com títulos → 1 chunk por seção; texto corrido → parágrafos agrupados com sobreposição.</li>
+<li><b>Geração automática</b> (<code>fabrica/autogeracao.py</code>), para <i>qualquer</i> documento e sem LLM. São regras extrativas sobre a estrutura: caput de artigo, listas ("São direitos básicos do usuário:" → "Quais são os direitos básicos do usuário?"), definições ("dado pessoal: …" → "O que é dado pessoal?"), prazos, seções (títulos em forma de pergunta viram FAQ) e parágrafos (palavras-chave por TF-IDF). Como a resposta copia linhas literais, a fidelidade vem da própria construção. Cada item tem 3 formas de pergunta: formal, alternativa e informal sem acento.</li>
+<li><b>Gabarito curado</b> (<code>fabrica/curadoria.py</code>): 29 perguntas factuais com respostas em linguagem simples e 14 categorias de recusa e urgência. Cada item tem 3 frases de treino e 1 de teste diferente. Se um trecho curado deixar de existir no documento, a fábrica para.</li>
+</ul>
+
+<h2>3. Documentos de entrada</h2>
+<table>
+<tr><th>Documento</th><th>Formato</th><th>Origem</th><th>Chunks</th><th>Dados pessoais</th></tr>
+<tr><td>Lei 13.460/2017 (usuário do serviço público), arts. 1–16</td><td>TXT</td><td>planalto.gov.br</td><td>18</td><td>0</td></tr>
+<tr><td>Lei 8.078/1990 (CDC), arts. 6, 18, 26, 42, 49</td><td>TXT</td><td>planalto.gov.br</td><td>9</td><td>0</td></tr>
+<tr><td>Lei 12.527/2011 (LAI), arts. 10, 11, 12, 15</td><td>TXT</td><td>planalto.gov.br</td><td>7</td><td>0</td></tr>
+<tr><td>Lei 13.709/2018 (LGPD), arts. 5, 17, 18</td><td>TXT</td><td>planalto.gov.br</td><td>6</td><td>0</td></tr>
+<tr><td>Guia de Atendimento de Vila Esperança (fictício)</td><td>TXT</td><td>grupo</td><td>5</td><td>20</td></tr>
+<tr><td>Cartilha da Coleta Seletiva (fictícia)</td><td>DOCX</td><td>upload</td><td>4</td><td>4</td></tr>
+<tr><td>Decreto Hortas Comunitárias (fictício, 3 páginas)</td><td>PDF</td><td>upload</td><td>7</td><td>2</td></tr>
+<tr><td>FAQ Transporte Escolar Rural (fictício)</td><td>MD</td><td>upload</td><td>5</td><td>2</td></tr>
+<tr><td>Página Tarifa Social da Água (fictícia)</td><td>HTML</td><td>upload</td><td>4</td><td>2</td></tr>
+</table>
+<p>As leis foram copiadas do Planalto em 05/11/2026 com o ruído real da coleta e não têm proteção autoral (Lei 9.610/98, art. 8º, IV). Os quatro exemplos de upload são gerados por <code>dados/gerar_exemplos_upload.py</code>. Cada um traz o ruído típico do seu formato e dados pessoais <b>inventados</b>: CPF com dígito verificador inválido e e-mail no domínio reservado <code>example.com</code>. Os números de emergência são os canais nacionais reais.</p>
+
+<h2>4. Os três corpus</h2>
+<table>
+<tr><th>Arquivo</th><th>Conteúdo</th><th>Registros</th></tr>
+<tr><td><b>corpus_texto_puro.jsonl</b></td><td><code>{"text": …}</code>: texto limpo e anonimizado de cada documento, em partes de até 600 palavras, para pré-treino continuado ou adaptação de domínio</td><td>14</td></tr>
+<tr><td><b>corpus_conversacional.jsonl</b></td><td>Chat com <b>várias trocas</b>: 40 diálogos sobre um documento (2 perguntas + fechamento), 14 com urgência ou recusa <i>no meio</i> da conversa, 42 de linguagem simples e 7 de tom e persona</td><td>103</td></tr>
+<tr><td><b>corpus_perguntas_respostas.jsonl</b></td><td>Chat de 1 troca: CONTEXTO + pergunta → resposta com <code>Fonte: [chunk_id]</code>. São 129 curados (42 recusas, 21 urgências) e 171 automáticos</td><td>300</td></tr>
+<tr><td>corpus_referencia.jsonl</td><td>Apoio: chunks + metadados, a base que o RAG consulta</td><td>65</td></tr>
+<tr><td>conjunto_teste.jsonl</td><td>Apoio: golden set congelado (29 factuais + 7 urgências + 7 recusas)</td><td>43</td></tr>
+</table>
+<p>O CONTEXTO de cada exemplo traz a fonte certa <b>e um distrator</b>, o chunk mais parecido segundo o BM25, para o modelo aprender a escolher o trecho. Nas perguntas "sem base", ele traz só trechos irrelevantes: a busca sempre devolve algo, e quem recusa é o gerador. Nos diálogos com urgência no meio, o modelo aprende a não "embalar" no assunto anterior. Por exemplo: o usuário pergunta sobre a LGPD e, em seguida, diz "o barranco atrás da minha casa está rachando". A resposta certa é "ligue AGORA para a Defesa Civil: 199".</p>
+
+<h2>5. Nenhum dado pessoal real: antes × depois</h2>
+<p class="code"><b>ANTES:</b> A cidadã Maria Aparecida dos Santos Lima, CPF 123.456.789-00, RG 12.345.678-X, [...] telefone (11) 98888-7777, e-mail maria.lima78@example.com [...]<br/>[10:02] cidadão: oi bom dia, aqui é o josé roberto almeida, meu cpf é 98765432111<br/>Coordenadora da campanha: Ana Beatriz Moura, telefone (11) 97654-3210 <i>(DOCX)</i> · Responsável técnico: Sebastião Ferreira <i>(PDF)</i></p>
+<p class="code"><b>DEPOIS:</b> A cidadã [NOME], CPF [CPF], RG [RG], [...] telefone [TELEFONE], e-mail [EMAIL] [...]<br/>[10:02] cidadão: oi bom dia, aqui é o [NOME], meu cpf é [CPF]<br/>Coordenadora da campanha: [NOME], telefone [TELEFONE] · Responsável técnico: [NOME]</p>
+<p>Foram 30 substituições em 5 documentos. As tabelas completas estão em <code>saida/antes_depois/</code>. Nas leis não houve nenhuma: os nomes das assinaturas saem já na limpeza. <b>Falhas encontradas e corrigidas:</b> (1) "rua ta queimada faz 1" era marcado como endereço, e entrou um filtro de verbos; (2) "falar com Luzia Campos" (no MD) passava sem anonimização, e entraram gatilhos novos, testados para não pegar frases como "procure o posto de saúde". A regra erra para o lado da cautela: na dúvida, anonimiza.</p>
+
+<h2>6. Recusas e urgências</h2>
+<p>São 14 categorias, com 42 exemplos de perguntas e respostas, 14 diálogos e 14 de teste. <b>Urgências</b>: emergência médica (192), incêndio e afogamento (193), enchente e deslizamento (199), crime (190), violência contra a mulher (180/190), risco de suicídio (188, com acolhimento), violação de direitos de criança, idoso ou PcD (100). <b>Recusas</b>: dados de terceiros (LGPD), usuário enviando os próprios dados, parecer jurídico (encaminha à Defensoria/Procon), fora de escopo, pergunta sem base ("não encontrei nos documentos"), opinião política e fraude.</p>
+
+<h2>7. Auditoria automática (10/10 aprovados)</h2>
+<p>O pipeline termina com erro, e a interface bloqueia os downloads, se algo falhar: (1) os detectores de dados pessoais rodam de novo sobre todas as strings dos 5 arquivos; (2) nenhum dos 41 valores do gabarito fictício aparece; (3) todo trecho de apoio está no CONTEXTO e na referência; (4) <b>toda fonte citada pelo assistente está no CONTEXTO que ele recebeu</b>; (5) há ≥ 10 recusas e urgências; (6) o formato de chat é válido; (7) existem diálogos de várias trocas; (8) o texto puro é válido; (9) os ids são únicos; (10) não há vazamento: a maior semelhança de Jaccard entre uma pergunta de teste e qualquer pergunta de treino, curada ou automática, é 0,50. A checagem (4) entrou nesta versão e encontrou um problema real: nos pedidos de "explique em linguagem simples", o assistente citava <code>[lai#art15]</code> sem ter recebido esse id, o que ensinaria o modelo a <i>inventar citações</i>. Agora o trecho chega rotulado no CONTEXTO.</p>
+
+<h2>8. Avaliação sem LLM</h2>
+<p>Antes de qualquer treino, o pipeline mede um sistema <b>sem LLM</b> (Aula 22): regra dura de urgência + regras de recusa + busca + limiar de "não sei". A variante de busca, o limiar e os sinônimos foram escolhidos <i>só</i> nas perguntas de treino. O índice tem 65 chunks dos 9 documentos.</p>
+<table>
+<tr><th>Busca</th><th>Conjunto</th><th>hit@1</th><th>hit@3</th><th>MRR</th><th>Comportamento</th><th>Urgências</th><th>Recusa</th></tr>
+<tr><td>BM25</td><td>treino</td><td>0,563</td><td>0,759</td><td>0,665</td><td>0,915</td><td>21/21</td><td>20/21</td></tr>
+<tr><td>BM25</td><td><b>teste</b></td><td>0,552</td><td>0,759</td><td>0,664</td><td>0,930</td><td>7/7</td><td>7/7</td></tr>
+<tr><td>Híbrida</td><td>treino</td><td>0,632</td><td>0,851</td><td>0,756</td><td>0,953</td><td>21/21</td><td>21/21</td></tr>
+<tr><td>Híbrida</td><td><b>teste</b></td><td><b>0,621</b></td><td><b>0,862</b></td><td><b>0,724</b></td><td><b>0,953</b></td><td>7/7</td><td>7/7</td></tr>
+</table>
+<p>A <b>busca híbrida</b> junta dois BM25 por Reciprocal Rank Fusion. O primeiro trabalha com palavras e consulta expandida da linguagem do cidadão para a da lei ("conserto" → "vício sanado"). O segundo trabalha com n-gramas de 4 caracteres, que toleram erro de digitação. A cada execução, o pipeline confere que nenhum sinônimo aparece só nas perguntas de teste. Enriquecer o índice com título e seção piorou o resultado no treino e foi descartado. A métrica que não pode falhar (urgência → serviço de emergência) ficou em 7/7. A avaliação também pegou um bug: "lama" casava dentro de "rec<b>lama</b>r". Os erros que restam ("meu endereço antigo" dispara a regra de dados pessoais) não foram corrigidos olhando o teste.</p>
+
+<h2>9. Bônus: LoRA</h2>
+<p>Treinamos um LoRA (r=16, adapter de 47 MB) no Qwen2.5-0.5B-Instruct com <code>corpus_perguntas_respostas</code> + <code>corpus_conversacional</code>, com máscara em todas as respostas dos diálogos de várias trocas, e comparamos as três configurações no conjunto de teste com o contexto certo já recuperado. <b>Ressalva:</b> a GPU local (GTX 1650, 4 GB) ficou sem memória, então o treino foi <b>reduzido</b>: na CPU, com 200 exemplos (os 105 de recusa, urgência, persona e linguagem simples + 95 factuais e de diálogo) e 1 época, em 46 minutos. O treino completo (403 exemplos, 3 épocas) é o do notebook no Colab com T4.</p>
+<table>
+<tr><th>Configuração</th><th>Cita a fonte</th><th>Números fiéis</th><th>F1</th><th>Recusa indevida</th><th>Urgências</th><th>Recusa correta</th><th>Tokens do system</th></tr>
+<tr><td>A. Base + prompt curto</td><td>0%</td><td>50%</td><td>24%</td><td>3%</td><td>0/7</td><td>1/7</td><td>8</td></tr>
+<tr><td>B. Base + prompt longo</td><td>59%</td><td>44%</td><td>26%</td><td>3%</td><td>0/7</td><td>5/7</td><td>499</td></tr>
+<tr><td>C. LoRA + prompt curto</td><td><b>86%</b></td><td>31%</td><td><b>29%</b></td><td>28%</td><td>1/7</td><td><b>6/7</b></td><td><b>8</b></td></tr>
+</table>
+<p><b>Leitura.</b> Mesmo curto, o treino ensinou a <i>forma</i>: com um system de 8 tokens, o LoRA cita a fonte certa em 86% das respostas, contra 59% do prompt longo de 499 tokens, e recusa melhor (6/7). Mas também aprendeu a recusar demais: 28% das perguntas respondíveis foram recusadas. As <b>urgências</b> falharam nas três configurações. O modelo base ignora o trecho com os números de emergência, e o LoRA mandou ligar 192 num caso de risco de suicídio, quando o certo é o CVV (188). Isso confirma o desenho: <b>urgência é regra dura antes do modelo</b>, e a linha de base sem LLM acerta 7/7. <b>Pegadinhas:</b> sem CONTEXTO, ou com um fato fora dos documentos, B e C inventam valores e fontes ("Fonte: [sema.gov.br]"). O corpus ensina a citar só o que está no CONTEXTO, mas não tinha exemplos <i>sem</i> contexto. Exemplos de "pergunta sem contexto → não sei" são a próxima adição ao corpus.</p>
+
+<h2>10. Limitações e próximos passos</h2>
+<ul>
+<li>As respostas automáticas são extrativas: fiéis, mas no registro do documento, e não em linguagem simples. O gabarito curado ensina o tom. Um próximo passo é usar um LLM local para reescrever as respostas, mantendo a checagem literal do trecho e a auditoria como barreira.</li>
+<li>A anonimização por regras pode deixar passar nomes sem gatilho e fora do dicionário. Um NER (spaCy pt) entraria como camada extra, com o gabarito como teste de regressão.</li>
+<li>PDF escaneado (imagem) precisa de OCR, que ainda não está no pipeline.</li>
+<li>Leis mudam: com a data de coleta e a URL nos metadados, dá para refazer a referência sem retreinar, porque o fato se consulta.</li>
+</ul>
+</body></html>

@@ -1,0 +1,524 @@
+{
+  "documentos": [
+    {
+      "doc_id": "lei13460",
+      "arquivo": "brutos/lei_13460_2017_usuario_servico_publico.txt",
+      "titulo": "Lei nº 13.460/2017 — Código de Defesa do Usuário do Serviço Público",
+      "tipo": "lei_federal",
+      "orgao_emissor": "Presidência da República",
+      "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm",
+      "data_publicacao": "2017-06-26",
+      "data_coleta": "2026-11-05",
+      "escopo_coletado": "Trechos selecionados: arts. 1º, 2º, 4º, 5º, 6º, 7º (caput, §1º e §2º), 9º, 10, 10-A, 11, 12 e 16",
+      "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+      "tema": [
+        "serviço público",
+        "ouvidoria",
+        "direitos do usuário"
+      ],
+      "ficticio": false,
+      "formato": "txt",
+      "origem": "acervo_base"
+    },
+    {
+      "doc_id": "cdc",
+      "arquivo": "brutos/cdc_lei_8078_1990.txt",
+      "titulo": "Lei nº 8.078/1990 — Código de Defesa do Consumidor (texto compilado)",
+      "tipo": "lei_federal",
+      "orgao_emissor": "Presidência da República",
+      "url_fonte": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm",
+      "data_publicacao": "1990-09-11",
+      "data_coleta": "2026-11-05",
+      "escopo_coletado": "Trechos selecionados: arts. 6º, 18 (caput e §§1º a 3º), 26, 42 e 49",
+      "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+      "tema": [
+        "consumidor",
+        "arrependimento",
+        "vício do produto",
+        "cobrança indevida"
+      ],
+      "ficticio": false,
+      "formato": "txt",
+      "origem": "acervo_base"
+    },
+    {
+      "doc_id": "lai",
+      "arquivo": "brutos/lai_lei_12527_2011.txt",
+      "titulo": "Lei nº 12.527/2011 — Lei de Acesso à Informação (LAI)",
+      "tipo": "lei_federal",
+      "orgao_emissor": "Presidência da República",
+      "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm",
+      "data_publicacao": "2011-11-18",
+      "data_coleta": "2026-11-05",
+      "escopo_coletado": "Trechos selecionados: arts. 10, 11, 12 e 15",
+      "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+      "tema": [
+        "transparência",
+        "pedido de informação",
+        "recurso"
+      ],
+      "ficticio": false,
+      "formato": "txt",
+      "origem": "acervo_base"
+    },
+    {
+      "doc_id": "lgpd",
+      "arquivo": "brutos/lgpd_lei_13709_2018.txt",
+      "titulo": "Lei nº 13.709/2018 — Lei Geral de Proteção de Dados Pessoais (LGPD, texto compilado)",
+      "tipo": "lei_federal",
+      "orgao_emissor": "Presidência da República",
+      "url_fonte": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm",
+      "data_publicacao": "2018-08-14",
+      "data_coleta": "2026-11-05",
+      "escopo_coletado": "Trechos selecionados: arts. 5º (incisos I a V), 17 e 18",
+      "licenca": "Texto oficial de ato normativo — não protegido por direito autoral (Lei nº 9.610/1998, art. 8º, IV)",
+      "tema": [
+        "dados pessoais",
+        "direitos do titular",
+        "privacidade"
+      ],
+      "ficticio": false,
+      "formato": "txt",
+      "origem": "acervo_base"
+    },
+    {
+      "doc_id": "guia_vila_esperanca",
+      "arquivo": "brutos/documento_teste_ficticio_guia_vila_esperanca.txt",
+      "titulo": "Guia de Atendimento ao Cidadão — Prefeitura de Vila Esperança (DOCUMENTO-TESTE FICTÍCIO)",
+      "tipo": "orientacao_municipal_ficticia",
+      "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+      "url_fonte": null,
+      "data_publicacao": "2026-11-05",
+      "data_coleta": "2026-11-05",
+      "escopo_coletado": "Documento completo, criado pelo grupo. Contém dados pessoais INVENTADOS (CPFs com dígito verificador inválido, e-mails no domínio reservado example.com) para provar a anonimização. Os números de emergência (190, 192, 193, 199, 180, 100, 188) são os canais nacionais reais.",
+      "licenca": "Criado pelo grupo para fins acadêmicos",
+      "tema": [
+        "ouvidoria municipal",
+        "urgência",
+        "emergência",
+        "iluminação pública"
+      ],
+      "ficticio": true,
+      "formato": "txt",
+      "origem": "acervo_base"
+    },
+    {
+      "doc_id": "coleta_seletiva",
+      "arquivo": "cartilha_coleta_seletiva.docx",
+      "titulo": "Cartilha da Coleta Seletiva de Vila Esperança",
+      "tipo": "cartilha",
+      "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+      "url_fonte": "upload:cartilha_coleta_seletiva.docx",
+      "data_publicacao": "2026-10-01",
+      "data_coleta": "2026-11-10",
+      "licenca": "Documento fictício criado pelo grupo para teste",
+      "ficticio": true,
+      "formato": "docx",
+      "origem": "upload"
+    },
+    {
+      "doc_id": "decreto_hortas",
+      "arquivo": "decreto_hortas_comunitarias.pdf",
+      "titulo": "Decreto Municipal nº 1.234/2026 — Programa Hortas Comunitárias (fictício)",
+      "tipo": "lei_municipal",
+      "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+      "url_fonte": "upload:decreto_hortas_comunitarias.pdf",
+      "data_publicacao": "2026-10-01",
+      "data_coleta": "2026-11-10",
+      "licenca": "Documento fictício criado pelo grupo para teste",
+      "ficticio": true,
+      "formato": "pdf",
+      "origem": "upload"
+    },
+    {
+      "doc_id": "transporte_rural",
+      "arquivo": "faq_transporte_escolar_rural.md",
+      "titulo": "Transporte escolar rural — perguntas frequentes",
+      "tipo": "faq",
+      "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+      "url_fonte": "upload:faq_transporte_escolar_rural.md",
+      "data_publicacao": "2026-10-01",
+      "data_coleta": "2026-11-10",
+      "licenca": "Documento fictício criado pelo grupo para teste",
+      "ficticio": true,
+      "formato": "md",
+      "origem": "upload"
+    },
+    {
+      "doc_id": "tarifa_social_agua",
+      "arquivo": "tarifa_social_agua.html",
+      "titulo": "Tarifa social da água",
+      "tipo": "pagina_web",
+      "orgao_emissor": "Prefeitura Municipal de Vila Esperança (fictícia)",
+      "url_fonte": "upload:tarifa_social_agua.html",
+      "data_publicacao": "2026-10-01",
+      "data_coleta": "2026-11-10",
+      "licenca": "Documento fictício criado pelo grupo para teste",
+      "ficticio": true,
+      "formato": "html",
+      "origem": "upload"
+    }
+  ],
+  "avisos": [],
+  "estatisticas_por_documento": {
+    "lei13460": {
+      "formato": "txt",
+      "origem": "acervo_base",
+      "caracteres_brutos": 12372,
+      "caracteres_limpos": 11149,
+      "trechos_revogados": 2,
+      "linhas_assinatura_removidas": 7,
+      "anotacoes_legislativas": 11,
+      "linhas_ruido_site": 6,
+      "pii_substituidas": 0,
+      "pii_por_tipo": {},
+      "chunks": 18
+    },
+    "cdc": {
+      "formato": "txt",
+      "origem": "acervo_base",
+      "caracteres_brutos": 7016,
+      "caracteres_limpos": 5901,
+      "trechos_revogados": 0,
+      "linhas_assinatura_removidas": 7,
+      "anotacoes_legislativas": 11,
+      "linhas_ruido_site": 9,
+      "incisos_vetados": 2,
+      "pii_substituidas": 0,
+      "pii_por_tipo": {},
+      "chunks": 9
+    },
+    "lai": {
+      "formato": "txt",
+      "origem": "acervo_base",
+      "caracteres_brutos": 5251,
+      "caracteres_limpos": 4196,
+      "trechos_revogados": 1,
+      "linhas_assinatura_removidas": 15,
+      "anotacoes_legislativas": 6,
+      "linhas_ruido_site": 6,
+      "pii_substituidas": 0,
+      "pii_por_tipo": {},
+      "chunks": 7
+    },
+    "lgpd": {
+      "formato": "txt",
+      "origem": "acervo_base",
+      "caracteres_brutos": 4667,
+      "caracteres_limpos": 3951,
+      "trechos_revogados": 0,
+      "linhas_assinatura_removidas": 15,
+      "anotacoes_legislativas": 3,
+      "linhas_ruido_site": 5,
+      "pii_substituidas": 0,
+      "pii_por_tipo": {},
+      "chunks": 6
+    },
+    "guia_vila_esperanca": {
+      "formato": "txt",
+      "origem": "acervo_base",
+      "caracteres_brutos": 2952,
+      "caracteres_limpos": 2817,
+      "trechos_revogados": 0,
+      "anotacoes_legislativas": 0,
+      "linhas_ruido_site": 4,
+      "pii_substituidas": 20,
+      "pii_por_tipo": {
+        "DATA_NASCIMENTO": 1,
+        "PROTOCOLO": 1,
+        "MATRICULA": 1,
+        "BAIRRO": 1,
+        "ENDERECO": 2,
+        "EMAIL": 1,
+        "CARTAO_SUS": 1,
+        "CPF": 2,
+        "RG": 1,
+        "CEP": 1,
+        "TELEFONE": 2,
+        "PLACA": 1,
+        "NOME": 5
+      },
+      "chunks": 5
+    },
+    "coleta_seletiva": {
+      "formato": "docx",
+      "origem": "upload",
+      "caracteres_brutos": 1091,
+      "caracteres_limpos": 1046,
+      "trechos_revogados": 1,
+      "anotacoes_legislativas": 0,
+      "pii_substituidas": 4,
+      "pii_por_tipo": {
+        "ENDERECO": 1,
+        "EMAIL": 1,
+        "TELEFONE": 1,
+        "NOME": 1
+      },
+      "chunks": 4
+    },
+    "decreto_hortas": {
+      "formato": "pdf",
+      "origem": "upload",
+      "caracteres_brutos": 1344,
+      "caracteres_limpos": 1344,
+      "trechos_revogados": 0,
+      "anotacoes_legislativas": 0,
+      "pii_substituidas": 2,
+      "pii_por_tipo": {
+        "TELEFONE": 1,
+        "NOME": 1
+      },
+      "chunks": 7
+    },
+    "transporte_rural": {
+      "formato": "md",
+      "origem": "upload",
+      "caracteres_brutos": 830,
+      "caracteres_limpos": 821,
+      "trechos_revogados": 0,
+      "anotacoes_legislativas": 0,
+      "pii_substituidas": 2,
+      "pii_por_tipo": {
+        "EMAIL": 1,
+        "NOME": 1
+      },
+      "chunks": 5
+    },
+    "tarifa_social_agua": {
+      "formato": "html",
+      "origem": "upload",
+      "caracteres_brutos": 942,
+      "caracteres_limpos": 894,
+      "trechos_revogados": 1,
+      "anotacoes_legislativas": 0,
+      "pii_substituidas": 2,
+      "pii_por_tipo": {
+        "CPF": 1,
+        "NOME": 1
+      },
+      "chunks": 4
+    }
+  },
+  "auditoria": {
+    "testes": {
+      "pii_detectores_zero": true,
+      "pii_originais_zero": true,
+      "fidelidade_trechos": true,
+      "recusas_ao_menos_10": true,
+      "urgencias_presentes": true,
+      "formato_chat_valido": true,
+      "conversacional_multi_turn": true,
+      "texto_puro_valido": true,
+      "ids_unicos": true,
+      "sem_vazamento_teste_treino": true
+    },
+    "detalhes": {
+      "pii_achados": [],
+      "n_valores_pii_verificados": 41,
+      "falhas_fidelidade": [],
+      "n_recusas_encaminhamentos": 42,
+      "n_urgencias": 21,
+      "n_dialogos_com_urgencia": 7,
+      "recusas_auditadas": true,
+      "n_dialogos_multi_turn": 54,
+      "maior_jaccard_teste_treino": {
+        "valor": 0.5,
+        "teste": "Desisti da compra no prazo. Em quanto tempo o dinheiro tem que voltar?",
+        "treino": " se eu desistir da compra no prazo eles tem que devolver meu dinheiro?"
+      }
+    },
+    "aprovado": true
+  },
+  "avaliacao_linha_de_base": {
+    "sistemas": {
+      "BM25 (linha de base)": {
+        "limiar_calibrado_no_treino": 4.661,
+        "treino_dev": {
+          "hit@1": 0.563,
+          "hit@3": 0.759,
+          "MRR": 0.665,
+          "acuracia_comportamento": 0.915,
+          "urgencias_encaminhadas": "21/21",
+          "recusa_correta": "20/21",
+          "n": 129,
+          "erros": [
+            {
+              "id": "qa_cdc_vicio_oculto",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_cdc_cobranca_dobro",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "encaminhar_urgencia"
+            },
+            {
+              "id": "qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lai_sem_motivo",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lai_gratuito",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lai_gratuito",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lgpd_sem_custo",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_13460_prioridade",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "rec_sem_base",
+              "esperado": "recusar",
+              "previsto": "responder"
+            }
+          ]
+        },
+        "teste": {
+          "hit@1": 0.552,
+          "hit@3": 0.759,
+          "MRR": 0.664,
+          "acuracia_comportamento": 0.93,
+          "urgencias_encaminhadas": "7/7",
+          "recusa_correta": "7/7",
+          "n": 43,
+          "erros": [
+            {
+              "id": "teste_qa_cdc_vicio_30dias",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "teste_qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "teste_qa_lgpd_direitos_titular",
+              "esperado": "responder",
+              "previsto": "recusar"
+            }
+          ]
+        }
+      },
+      "Híbrida: expansão + n-gramas + RRF": {
+        "limiar_calibrado_no_treino": 4.978,
+        "treino_dev": {
+          "hit@1": 0.632,
+          "hit@3": 0.851,
+          "MRR": 0.756,
+          "acuracia_comportamento": 0.953,
+          "urgencias_encaminhadas": "21/21",
+          "recusa_correta": "21/21",
+          "n": 129,
+          "erros": [
+            {
+              "id": "qa_cdc_vicio_oculto",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "encaminhar_urgencia"
+            },
+            {
+              "id": "qa_cdc_cobranca_constrangimento",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lai_sem_motivo",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_lai_gratuito",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "qa_13460_prioridade",
+              "esperado": "responder",
+              "previsto": "recusar"
+            }
+          ]
+        },
+        "teste": {
+          "hit@1": 0.621,
+          "hit@3": 0.862,
+          "MRR": 0.724,
+          "acuracia_comportamento": 0.953,
+          "urgencias_encaminhadas": "7/7",
+          "recusa_correta": "7/7",
+          "n": 43,
+          "erros": [
+            {
+              "id": "teste_qa_cdc_cobranca_dobro",
+              "esperado": "responder",
+              "previsto": "recusar"
+            },
+            {
+              "id": "teste_qa_lgpd_direitos_titular",
+              "esperado": "responder",
+              "previsto": "recusar"
+            }
+          ]
+        }
+      }
+    },
+    "escolhido_pelo_treino": "Híbrida: expansão + n-gramas + RRF",
+    "sinonimos_so_no_teste": [],
+    "hit@1": 0.621,
+    "hit@3": 0.862,
+    "MRR": 0.724,
+    "acuracia_comportamento": 0.953,
+    "urgencias_encaminhadas": "7/7",
+    "recusa_correta": "7/7",
+    "n": 43,
+    "erros": [
+      {
+        "id": "teste_qa_cdc_cobranca_dobro",
+        "esperado": "responder",
+        "previsto": "recusar"
+      },
+      {
+        "id": "teste_qa_lgpd_direitos_titular",
+        "esperado": "responder",
+        "previsto": "recusar"
+      }
+    ]
+  },
+  "contagens": {
+    "corpus_texto_puro": 14,
+    "corpus_conversacional": 103,
+    "corpus_perguntas_respostas": 300,
+    "corpus_referencia": 65,
+    "conjunto_teste": 43
+  }
+}

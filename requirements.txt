@@ -1,0 +1,5 @@
+# Pipeline (run_pipeline.py): biblioteca padrão do Python 3.10+. Leitura de PDF: pymupdf (ou pypdf).
+pymupdf>=1.24
+# Interface com upload (app.py)
+streamlit>=1.40
+# Bônus LoRA fora do Colab (notebook/rodar_lora_local.py): torch, transformers, peft, accelerate

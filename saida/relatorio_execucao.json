@@ -316,8 +316,8 @@
       "pii_achados": [],
       "n_valores_pii_verificados": 41,
       "falhas_fidelidade": [],
-      "n_recusas_encaminhamentos": 42,
-      "n_urgencias": 21,
+      "n_recusas_encaminhamentos": 78,
+      "n_urgencias": 28,
       "n_dialogos_com_urgencia": 7,
       "recusas_auditadas": true,
       "n_dialogos_multi_turn": 54,
@@ -517,7 +517,7 @@
   "contagens": {
     "corpus_texto_puro": 14,
     "corpus_conversacional": 103,
-    "corpus_perguntas_respostas": 300,
+    "corpus_perguntas_respostas": 336,
     "corpus_referencia": 65,
     "conjunto_teste": 43
   }

@@ -57,7 +57,7 @@ O primeiro comando processa o acervo base mais os exemplos de `dados/exemplos_up
 |---|---|---|---|
 | `corpus_texto_puro.jsonl` | **Texto puro** | `{"text": ...}`: texto limpo e anonimizado de cada documento, em partes de até 600 palavras, para pré-treino continuado ou adaptação de domínio | 14 |
 | `corpus_conversacional.jsonl` | **Conversacional** | chat com **várias trocas**: 40 diálogos sobre um documento (2 perguntas + fechamento), 14 com **urgência ou recusa no meio da conversa**, 42 de linguagem simples e 7 de tom e persona | 103 |
-| `corpus_perguntas_respostas.jsonl` | **Perguntas e respostas** | chat de 1 troca: CONTEXTO (fonte certa + distrator) + pergunta → resposta com `Fonte: [chunk_id]`. São 129 curados (42 recusas, 21 urgências) e 171 automáticos | 300 |
+| `corpus_perguntas_respostas.jsonl` | **Perguntas e respostas** | chat de 1 troca: CONTEXTO (fonte certa + distrator) + pergunta → resposta com `Fonte: [chunk_id]`. São 165 curados e 171 automáticos. Entre os curados estão 42 recusas e urgências com CONTEXTO e 36 exemplos **sem CONTEXTO** (busca vazia): 29 perguntas factuais → "não vou arriscar" e 7 urgências → encaminhar mesmo assim | 336 |
 | `corpus_referencia.jsonl` | apoio (RAG) | chunks + metadados (formato original, origem, URL, datas, licença) | 65 |
 | `conjunto_teste.jsonl` | apoio (avaliação) | golden set congelado: 29 factuais + 7 urgências + 7 recusas, com frases diferentes das de treino | 43 |
 
@@ -124,7 +124,7 @@ Resultado do treino **reduzido** feito localmente (CPU, 200 exemplos, 1 época, 
 | B. Base + prompt longo | 59% | 44% | 26% | 3% | 0/7 | 5/7 | 499 |
 | C. LoRA + prompt curto | **86%** | 31% | **29%** | 28% | 1/7 | **6/7** | **8** |
 
-O LoRA aprendeu a citar a fonte com um system de 8 tokens, mas passou a recusar demais. Nenhuma configuração resolve as urgências, por isso elas são tratadas por regra dura antes do modelo (7/7 na avaliação sem LLM). Sem CONTEXTO, B e C inventam fontes, e a próxima adição ao corpus são exemplos de "pergunta sem contexto → não sei". Detalhes e exemplos de saída estão no relatório e em `notebook/resultados_lora_local/` (log da execução e saídas de A, B e C para cada pergunta de teste).
+O LoRA aprendeu a citar a fonte com um system de 8 tokens, mas passou a recusar demais. Nenhuma configuração resolve as urgências, por isso elas são tratadas por regra dura antes do modelo (7/7 na avaliação sem LLM). Sem CONTEXTO, B e C inventavam fontes. Por isso, depois desse treino, entraram no corpus 36 exemplos sem contexto (ainda não retreinados). Detalhes e exemplos de saída estão no relatório e em `notebook/resultados_lora_local/` (log da execução e saídas de A, B e C para cada pergunta de teste).
 
 ## Estrutura
 

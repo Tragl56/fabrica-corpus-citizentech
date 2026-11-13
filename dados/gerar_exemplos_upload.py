@@ -14,7 +14,7 @@ from xml.sax.saxutils import escape
 PASTA = Path(__file__).parent / "exemplos_upload"
 ORGAO = "Prefeitura Municipal de Vila Esperança (fictícia)"
 META = {"orgao_emissor": ORGAO, "licenca": "Documento fictício criado pelo grupo para teste",
-        "ficticio": True, "data_publicacao": "2026-10-01"}
+        "ficticio": True, "data_publicacao": "2026-10-01", "data_coleta": "2026-11-10"}
 
 # Dados pessoais inventados presentes nos exemplos (a auditoria verifica que nenhum sobra).
 PII_EXEMPLOS = ["Ana Beatriz Moura", "(11) 97654-3210", "ana.moura@example.com", "Rua dos Ipês, 88",

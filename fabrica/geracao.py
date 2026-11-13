@@ -23,6 +23,9 @@ SEMENTE = 2026
 MAX_PALAVRAS_TEXTO_PURO = 600
 ABERTURAS = ["oi, tudo bem? ", "bom dia! ", "olá, ", "", "boa tarde, uma dúvida: ", ""]
 CONTINUACOES = ["e {q}", "outra dúvida: {q}", "aproveitando, {q}", "{q}"]
+RESPOSTA_SEM_CONTEXTO = ("Não recebi nenhum trecho dos documentos oficiais sobre isso, então não vou arriscar uma "
+                         "resposta: prazos e direitos precisam vir da fonte. Você pode reformular a pergunta ou "
+                         "consultar o canal oficial do órgão responsável.")
 FECHAMENTOS = [("obrigado, ajudou muito!", "Que bom que ajudei! Se surgir outra dúvida, é só chamar."),
                ("valeu", "Por nada! Estou aqui se precisar."),
                ("entendi, obrigada", "Disponha! Se quiser, posso explicar outro ponto do documento.")]
@@ -165,6 +168,21 @@ def gerar_qa(itens: list[dict], chunks: list[dict], bm25: BM25, rng: random.Rand
                          "comportamento": item.get("comportamento", "responder"),
                          "fontes": ids, "trechos_apoio": item["_trechos"]},
             })
+    # SEM CONTEXTO (a busca não devolveu nada): fato -> não inventar; urgência -> encaminhar mesmo assim.
+    # O teste do LoRA mostrou que, sem estes exemplos, o modelo inventava valores e fontes.
+    for item in itens:
+        if item["origem"] != "curado" or item.get("comportamento", "responder") not in ("responder", "encaminhar_urgencia"):
+            continue
+        pergunta = _anon(item["treino"][-1])
+        urgencia = item.get("comportamento") == "encaminhar_urgencia"
+        resposta = item["resposta"] if urgencia else RESPOSTA_SEM_CONTEXTO
+        exemplos.append({
+            "messages": _msg(f"PERGUNTA: {pergunta}", resposta),
+            "meta": {"item": f"{item['id']}_sem_contexto", "origem": "curado",
+                     "categoria": "urgencia" if urgencia else "sem_contexto",
+                     "comportamento": item["comportamento"] if urgencia else "recusar",
+                     "fontes": [], "trechos_apoio": []},
+        })
     rng.shuffle(exemplos)
     return exemplos
 

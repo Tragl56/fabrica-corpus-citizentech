@@ -140,4 +140,5 @@ dados/exemplos_upload/     # exemplos fictícios em DOCX, HTML, PDF e MD (+ gera
 saida/                     # 3 corpus + referência + teste + antes_depois/ + relatorio_execucao.json
 notebook/                  # notebook do pipeline, notebook do LoRA, geradores e executor local
 relatorio/                 # relatório PDF, fonte HTML e roteiro do vídeo
+relatorio/video/           # vídeo de apresentação (MP4 + legendas .srt) e scripts que o geram
 ```

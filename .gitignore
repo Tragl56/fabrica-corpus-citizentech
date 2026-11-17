@@ -19,3 +19,6 @@ cidadaobot_lora.zip
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Vídeo: arquivos intermediários (slides, áudios e segmentos)
+relatorio/video/_build/

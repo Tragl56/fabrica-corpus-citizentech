@@ -1,7 +1,10 @@
 # Fábrica de Corpus CitizenTech — GS 2026.2
 
 **FIAP · Processamento de Linguagem Natural, Chatbots & Virtual Agents (Disciplina 08)**
-Integrantes: _(preencher: nome — RM)_
+**Integrantes:**
+- Davi Gravina — RM 565619
+- Henry Andrade Browne — RM 562089
+- Luiz Felipe dos Santos Tragi — RM 565009
 
 > **Enunciado:** desenvolver uma ferramenta que permita **subir diversos tipos de documentos e textos**, realize a **limpeza e normalização** dos dados e permita criar **três tipos diferentes de corpus (conversacional, perguntas e respostas, texto puro)** a serem usados para fine-tuning de uma LLM de pequeno porte.
 

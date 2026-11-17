@@ -1,8 +1,9 @@
-"""Gera o vídeo de apresentação (MP4 1920x1080) da Fábrica de Corpus, 100% local.
+"""Gera o vídeo de apresentação (MP4 1920x1080) da Fábrica de Corpus (slides e montagem locais).
 
   - slides montados com DADOS REAIS (saida/*.jsonl, relatorio_execucao.json, PDF de exemplo, LoRA)
   - telas reais da interface (relatorio/video/telas/, ver capturar_telas.py)
-  - narração com a voz pt-BR do Windows (System.Speech, "Microsoft Maria")
+  - narração com a voz neural pt-BR da Microsoft (pt-BR-AntonioNeural, via edge-tts; o texto vai ao
+    serviço de fala da Microsoft). Com --voz-local, usa a voz SAPI do Windows ("Microsoft Maria"), offline
   - legendas .srt embutidas + arquivo .srt ao lado; montagem com ffmpeg (imageio-ffmpeg)
 
     python relatorio/video/gerar_video.py        (rode antes: python run_pipeline.py)
@@ -370,7 +371,11 @@ def cenas(D):
 
 
 # ------------------------------------------------------------------ narração e montagem
-def falar(texto, wav):
+VOZ_NEURAL = "pt-BR-AntonioNeural"   # voz neural da Microsoft (edge-tts); --voz-local usa a SAPI do Windows
+
+
+def falar_local(texto, wav):
+    """Voz SAPI do Windows (offline): Microsoft Maria Desktop."""
     ps = TMP / "falar.ps1"
     ps.write_text(
         "Add-Type -AssemblyName System.Speech\n"
@@ -382,6 +387,23 @@ def falar(texto, wav):
         "$s.Dispose()\n", encoding="utf-8-sig")
     wav.with_suffix(".txt").write_text(texto, encoding="utf-8")
     subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(ps)], check=True)
+
+
+def falar_neural(texto, wav, ffmpeg):
+    """Voz neural da Microsoft via edge-tts (envia o texto ao serviço de fala da Microsoft)."""
+    import asyncio
+    import edge_tts
+    mp3 = wav.with_suffix(".mp3")
+    asyncio.run(edge_tts.Communicate(texto, VOZ_NEURAL, rate="+4%").save(str(mp3)))
+    subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-i", str(mp3), "-ar", "48000", "-ac", "1", str(wav)],
+                   check=True)
+
+
+def falar(texto, wav, ffmpeg):
+    if "--voz-local" in sys.argv:
+        falar_local(texto, wav)
+    else:
+        falar_neural(texto, wav, ffmpeg)
     with wave.open(str(wav)) as w:
         return w.getnframes() / w.getframerate()
 
@@ -418,7 +440,7 @@ def main():
     for n, (fazer_slide, narracao) in enumerate(cenas(D), 1):
         png, wav, mp4 = TMP / f"c{n:02d}.png", TMP / f"c{n:02d}.wav", TMP / f"c{n:02d}.mp4"
         fazer_slide(n).save(png)
-        dur_fala = falar(narracao, wav)
+        dur_fala = falar(narracao, wav, ffmpeg)
         dur = dur_fala + 0.6                       # respiro entre cenas
         subprocess.run([ffmpeg, "-y", "-loglevel", "error", "-loop", "1", "-framerate", "30", "-i", str(png),
                         "-i", str(wav), "-af", "loudnorm=I=-16:TP=-1.5:LRA=11,adelay=300|300,apad",

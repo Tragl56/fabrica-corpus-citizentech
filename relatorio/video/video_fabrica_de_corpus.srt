@@ -1,175 +1,175 @@
 1
-00:00:00,300 --> 00:00:06,118
+00:00:00,300 --> 00:00:05,765
 Olá! Somos Davi Gravina, Henry Andrade Browne e Luiz Felipe dos Santos Tragi.
 
 2
-00:00:06,118 --> 00:00:12,164
+00:00:05,765 --> 00:00:11,444
 Este é o nosso projeto de Processamento de Linguagem Natural da Global Solution:
 
 3
-00:00:12,164 --> 00:00:14,582
+00:00:11,444 --> 00:00:13,715
 a Fábrica de Corpus CitizenTech.
 
 4
-00:00:15,182 --> 00:00:30,823
+00:00:14,316 --> 00:00:28,704
 O desafio pede uma ferramenta que receba vários tipos de documentos, faça a limpeza e a normalização, e gere três corpus, conversacional, perguntas e respostas e texto puro, para o fine-tuning de uma LLM pequena.
 
 5
-00:00:30,823 --> 00:00:35,987
+00:00:28,704 --> 00:00:33,455
 Nosso tema é o cidadão: leis federais e orientações de uma prefeitura.
 
 6
-00:00:35,987 --> 00:00:37,979
+00:00:33,455 --> 00:00:35,288
 A regra que guiou tudo foi:
 
 7
-00:00:37,979 --> 00:00:40,488
+00:00:35,288 --> 00:00:37,596
 forma se treina, fato se consulta.
 
 8
-00:00:41,088 --> 00:00:43,303
+00:00:38,195 --> 00:00:40,245
 O pipeline tem sete etapas:
 
 9
-00:00:43,303 --> 00:00:52,167
+00:00:40,245 --> 00:00:48,443
 upload, limpeza e normalização, anonimização pela LGPD, chunking, geração dos corpus, auditoria e avaliação.
 
 10
-00:00:52,167 --> 00:00:58,732
+00:00:48,443 --> 00:00:54,515
 Tudo roda localmente, sem chave de API, pela interface ou pela linha de comando.
 
 11
-00:00:59,332 --> 00:01:02,687
+00:00:55,115 --> 00:00:58,268
 Esta é a interface, feita em Streamlit.
 
 12
-00:01:02,687 --> 00:01:07,505
+00:00:58,268 --> 00:01:02,796
 Dá para enviar arquivos TXT, Markdown, HTML, Word e PDF.
 
 13
-00:01:07,505 --> 00:01:17,313
+00:01:02,796 --> 00:01:12,012
 Na demonstração usamos o acervo base, com quatro leis federais, e quatro documentos fictícios, um em cada formato.
 
 14
-00:01:17,913 --> 00:01:19,931
+00:01:12,612 --> 00:01:14,540
 Cada formato tem um leitor.
 
 15
-00:01:19,931 --> 00:01:32,785
+00:01:14,540 --> 00:01:26,827
 No PDF, o cabeçalho do Diário Oficial e a numeração de página, que se repetem em todas as páginas, são removidos, e as palavras hifenizadas na quebra de linha são juntadas.
 
 16
-00:01:32,785 --> 00:01:40,184
+00:01:26,827 --> 00:01:33,900
 No HTML saem o menu e o rodapé, e no Word os títulos e o texto tachado são lidos direto do arquivo.
 
 17
-00:01:40,784 --> 00:01:51,436
+00:01:34,500 --> 00:01:44,668
 Depois vem a limpeza. Trechos revogados, notas como incluído pela lei, assinaturas e o ruído do site saem, e o texto é normalizado.
 
 18
-00:01:51,436 --> 00:01:53,632
+00:01:44,668 --> 00:01:46,764
 O conteúdo da lei não muda.
 
 19
-00:01:54,232 --> 00:01:57,435
+00:01:47,364 --> 00:01:50,309
 Nenhum dado pessoal pode entrar no corpus.
 
 20
-00:01:57,435 --> 00:02:12,231
+00:01:50,309 --> 00:02:03,915
 Os documentos de teste têm dados inventados, e a anonimização troca CPF, telefone, e-mail, endereço e nomes por etiquetas, inclusive nomes escritos em minúsculas, como numa conversa de WhatsApp.
 
 21
-00:02:12,231 --> 00:02:15,815
+00:02:03,915 --> 00:02:07,212
 Foram trinta substituições em cinco documentos.
 
 22
-00:02:16,415 --> 00:02:20,794
+00:02:07,812 --> 00:02:11,571
 Ao clicar em gerar corpus, a fábrica produz os três arquivos:
 
 23
-00:02:20,794 --> 00:02:29,048
+00:02:11,571 --> 00:02:18,660
 catorze registros de texto puro, cento e três conversas e trezentos e trinta e seis pares de perguntas e respostas.
 
 24
-00:02:29,648 --> 00:02:38,387
+00:02:19,260 --> 00:02:27,098
 As perguntas e respostas são geradas automaticamente para qualquer documento, por regras sobre a estrutura do texto:
 
 25
-00:02:38,387 --> 00:02:41,777
+00:02:27,098 --> 00:02:30,139
 artigos, listas, definições, prazos e seções.
 
 26
-00:02:41,777 --> 00:02:48,255
+00:02:30,139 --> 00:02:35,950
 A resposta copia o trecho literal, então é fiel por construção, e sempre cita a fonte.
 
 27
-00:02:48,255 --> 00:02:55,789
+00:02:35,950 --> 00:02:42,708
 Um gabarito escrito à mão completa o corpus com respostas em linguagem simples, recusas e urgências.
 
 28
-00:02:56,389 --> 00:03:00,442
+00:02:43,308 --> 00:02:46,937
 O corpus conversacional tem diálogos de várias trocas.
 
 29
-00:03:00,442 --> 00:03:07,950
+00:02:46,937 --> 00:02:53,659
 Neste, o cidadão pergunta sobre a LGPD e, de repente, relata uma rachadura enorme na parede de casa.
 
 30
-00:03:07,950 --> 00:03:11,403
+00:02:53,659 --> 00:02:56,751
 O assistente não continua no assunto anterior:
 
 31
-00:03:11,403 --> 00:03:17,108
+00:02:56,751 --> 00:03:01,860
 manda procurar um lugar seguro e ligar para a Defesa Civil, no um nove nove.
 
 32
-00:03:17,708 --> 00:03:28,181
+00:03:02,460 --> 00:03:11,945
 O corpus de texto puro guarda cada documento limpo e anonimizado, em partes de até seiscentas palavras, no formato usado para pré-treino continuado.
 
 33
-00:03:28,181 --> 00:03:35,965
+00:03:11,945 --> 00:03:18,996
 Neste exemplo, vindo de um arquivo do Word, a frase revogada sumiu e o contato da coordenadora virou etiqueta.
 
 34
-00:03:36,565 --> 00:03:43,122
+00:03:19,596 --> 00:03:25,741
 No fim roda uma auditoria com dez testes, de dado pessoal a vazamento entre treino e teste.
 
 35
-00:03:43,122 --> 00:03:46,436
+00:03:25,741 --> 00:03:28,848
 Se algum falha, os downloads ficam bloqueados.
 
 36
-00:03:46,436 --> 00:03:48,670
+00:03:28,848 --> 00:03:30,941
 Ela pegou dois problemas reais:
 
 37
-00:03:48,670 --> 00:03:56,307
+00:03:30,941 --> 00:03:38,100
 um nome que escapava da anonimização, e respostas que citavam uma fonte que o modelo nunca tinha recebido.
 
 38
-00:03:56,907 --> 00:04:02,925
+00:03:38,700 --> 00:03:43,990
 Para ter uma régua antes de treinar, medimos um sistema sem LLM, com regras e busca.
 
 39
-00:04:02,925 --> 00:04:13,886
+00:03:43,990 --> 00:03:53,628
 A nossa busca híbrida põe o trecho certo entre os três primeiros em oitenta e seis por cento das perguntas de teste, e encaminha todas as sete urgências.
 
 40
-00:04:14,486 --> 00:04:29,484
+00:03:54,228 --> 00:04:08,081
 No bônus, um LoRA no Qwen de meio bilhão de parâmetros, mesmo num treino reduzido, passou a citar a fonte em oitenta e seis por cento das respostas, contra cinquenta e nove do prompt longo, com um prompt de oito tokens.
 
 41
-00:04:29,484 --> 00:04:34,415
+00:04:08,081 --> 00:04:12,636
 Mas nenhuma configuração acertou as urgências, o que confirma a decisão:
 
 42
-00:04:34,415 --> 00:04:36,675
+00:04:12,636 --> 00:04:14,724
 urgência é regra antes do modelo.
 
 43
-00:04:37,275 --> 00:04:43,229
+00:04:15,324 --> 00:04:21,299
 O código, os corpus, os notebooks e o relatório estão no GitHub.
 
 44
-00:04:43,229 --> 00:04:44,066
+00:04:21,299 --> 00:04:22,140
 Obrigado!

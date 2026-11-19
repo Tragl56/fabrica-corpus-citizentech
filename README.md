@@ -12,7 +12,9 @@ A Fábrica recebe documentos públicos em **TXT, Markdown, HTML, Word (.docx) e 
 
 > **Forma se treina, fato se consulta.** Os exemplos ensinam *comportamento*: ler o CONTEXTO, citar a fonte, usar linguagem simples, recusar e encaminhar. O *fato* vem sempre de um trecho literal do documento.
 
-**Entregáveis:** [vídeo de apresentação](relatorio/video/video_apresentacao.mp4) (4min29s) · [relatório em PDF](relatorio/relatorio.pdf) · os quatro `.jsonl` pedidos em [`saida/`](saida/): `corpus_texto_puro`, `corpus_conversacional`, `corpus_perguntas_respostas` e `conjunto_teste` (mais `corpus_referencia`, de apoio) · [documento-teste fictício](dados/brutos/documento_teste_ficticio_guia_vila_esperanca.txt) e o [antes × depois](saida/antes_depois/guia_vila_esperanca.md).
+**🎥 Vídeo de apresentação (4min29s): https://youtu.be/FIlCgtCr3AQ**
+
+**Entregáveis:** [vídeo no YouTube](https://youtu.be/FIlCgtCr3AQ) (cópia em [`relatorio/video/video_apresentacao.mp4`](relatorio/video/video_apresentacao.mp4)) · [relatório em PDF](relatorio/relatorio.pdf) · os quatro `.jsonl` pedidos em [`saida/`](saida/): `corpus_texto_puro`, `corpus_conversacional`, `corpus_perguntas_respostas` e `conjunto_teste` (mais `corpus_referencia`, de apoio) · [documento-teste fictício](dados/brutos/documento_teste_ficticio_guia_vila_esperanca.txt) e o [antes × depois](saida/antes_depois/guia_vila_esperanca.md).
 
 ## Como usar
 

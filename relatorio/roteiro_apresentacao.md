@@ -17,7 +17,7 @@ Duração alvo: **5 minutos**. A coluna **Mostrar** diz o que estar na tela. A c
    - a pasta `dados/exemplos_upload/` no Explorador de Arquivos (os 4 arquivos: `.pdf`, `.docx`, `.html`, `.md`)
    - o `relatorio/relatorio.pdf` na página 3 (tabelas de avaliação e LoRA)
    - o terminal, com a saída do `run_pipeline.py` visível
-4. Plano B: se algo travar, o vídeo `relatorio/video/video_fabrica_de_corpus.mp4` mostra tudo.
+4. Plano B: se algo travar, o vídeo `relatorio/video/video_apresentacao.mp4` mostra tudo.
 
 ## Roteiro
 
@@ -32,7 +32,7 @@ Duração alvo: **5 minutos**. A coluna **Mostrar** diz o que estar na tela. A c
 | **3:10–3:40** | Aba **Conversacional** → Tipo de diálogo: **urgencia** → mostre o diálogo | "O corpus conversacional tem diálogos de várias trocas. Aqui o cidadão faz uma pergunta comum e, no meio da conversa, relata uma emergência. O assistente não continua no assunto anterior: manda ligar para o serviço certo — Defesa Civil, 199; SAMU, 192; CVV, 188." |
 | **3:40–3:55** | Aba **Texto puro** → abra `cartilha_coleta_seletiva#parte1` | "O texto puro é o documento limpo e anonimizado, em partes de até 600 palavras, no formato `text` usado para pré-treino continuado. Repare que a frase revogada do Word sumiu e o contato virou etiqueta." |
 | **3:55–4:20** | Expander **Auditoria** (10 itens verdes) | "No fim roda uma auditoria com dez testes: zero dado pessoal, fidelidade dos trechos, recusas e urgências, formato, diálogos de várias trocas e nenhum vazamento entre treino e teste. Se um teste falha, os downloads ficam bloqueados. Ela pegou dois problemas reais durante o projeto: um nome que escapava da anonimização, e respostas que citavam uma fonte que o modelo nunca tinha recebido — o que ensinaria o modelo a inventar citação." |
-| **4:20–4:45** | `relatorio.pdf`, página 3: tabela **Avaliação sem LLM** e tabela **LoRA** | "Antes de treinar, medimos uma régua sem LLM: regras e busca. A busca híbrida põe o trecho certo entre os três primeiros em 86% das perguntas de teste e encaminha as sete urgências. No bônus, um LoRA no Qwen de meio bilhão de parâmetros, mesmo num treino reduzido, passou a citar a fonte em 86% das respostas, contra 59% do prompt longo, com um prompt de 8 tokens. Mas nenhuma configuração acertou as urgências — por isso urgência é tratada por regra **antes** do modelo." |
+| **4:20–4:45** | `relatorio.pdf`, página 3: tabela **Avaliação sem LLM** e tabela **LoRA** | "Antes de treinar, medimos uma régua sem LLM: regras e busca. A busca híbrida põe o trecho certo entre os três primeiros em 86% das perguntas de teste e encaminha as sete urgências. No bônus, treinamos um LoRA no Qwen de meio bilhão de parâmetros, no Colab. Com um prompt de 8 tokens, ele passou a citar a fonte em 93% das respostas, contra 59% do prompt longo, e acertou todas as recusas. Mas acertou só 3 das 7 urgências — por isso urgência é tratada por regra **antes** do modelo." |
 | **4:45–5:00** | Botões **Baixar** (ou o GitHub: `github.com/Tragl56/fabrica-corpus-citizentech`) | "Os três corpus saem prontos para download. O código, os corpus, os notebooks e o relatório estão no GitHub. Obrigado!" |
 
 ## Se faltar tempo (versão de 3 minutos)
@@ -53,6 +53,6 @@ Mantenha: abertura → enunciado (curto) → upload ao vivo → cartões 14/103/
 - **"Como vocês garantem que não sobrou dado pessoal?"** — Duas camadas: os detectores rodam de novo sobre todas as strings dos arquivos de saída, e um gabarito com os 41 valores fictícios plantados nos documentos é procurado em tudo. Se aparecer um, a fábrica não libera o corpus.
 - **"E nomes que não estão no dicionário?"** — Pegamos por gatilho de contexto ("falar com", "Sr.", "aqui é o"…). Ainda pode escapar um nome sem gatilho; um NER seria a próxima camada. A regra erra para o lado da cautela.
 - **"O que é vazamento entre treino e teste?"** — Perguntas de teste parecidas demais com as de treino inflariam o resultado. Medimos a maior semelhança entre qualquer par: 0,50, abaixo do limite de 0,70. E toda escolha (busca, limiar, sinônimos) foi feita só no treino.
-- **"Por que o LoRA recusou demais?"** — Treino reduzido (200 exemplos, 1 época, na CPU, porque a GPU de 4 GB não tinha memória). O treino completo, com 403 exemplos e 3 épocas, está pronto no notebook para a T4 do Colab. Depois desse teste, acrescentamos 36 exemplos sem contexto ao corpus.
+- **"O LoRA não inventa resposta?"** — Um primeiro treino reduzido (na CPU) recusava demais e inventava fonte quando não havia contexto. Acrescentamos 36 exemplos sem contexto ao corpus e treinamos de novo no Colab (439 exemplos, 3 épocas): a recusa indevida caiu de 28% para 7%, e nas pegadinhas ele diz que não recebeu trecho oficial em vez de inventar.
 - **"Para que serve o texto puro se o treino é de chat?"** — Para uma etapa anterior, de pré-treino continuado: o modelo se acostuma com o vocabulário do domínio antes do ajuste de comportamento.
 - **"Aceita PDF escaneado?"** — Ainda não: PDF de imagem precisa de OCR. Está nas limitações do relatório.

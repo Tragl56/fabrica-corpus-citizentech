@@ -12,6 +12,8 @@ A Fábrica recebe documentos públicos em **TXT, Markdown, HTML, Word (.docx) e 
 
 > **Forma se treina, fato se consulta.** Os exemplos ensinam *comportamento*: ler o CONTEXTO, citar a fonte, usar linguagem simples, recusar e encaminhar. O *fato* vem sempre de um trecho literal do documento.
 
+**Entregáveis:** [vídeo de apresentação](relatorio/video/video_apresentacao.mp4) (4min29s) · [relatório em PDF](relatorio/relatorio.pdf) · os quatro `.jsonl` pedidos em [`saida/`](saida/): `corpus_texto_puro`, `corpus_conversacional`, `corpus_perguntas_respostas` e `conjunto_teste` (mais `corpus_referencia`, de apoio) · [documento-teste fictício](dados/brutos/documento_teste_ficticio_guia_vila_esperanca.txt) e o [antes × depois](saida/antes_depois/guia_vila_esperanca.md).
+
 ## Como usar
 
 **Interface com upload** (Streamlit):
@@ -119,15 +121,17 @@ A busca híbrida (`fabrica/busca.py`) junta dois BM25 por Reciprocal Rank Fusion
 
 No Colab com GPU T4, rode as células em ordem. Fora do Colab, use `notebook/rodar_lora_local.py`, com opções para máquinas fracas: `--dispositivo cpu --epocas 1 --limite 200 --pular-linha-de-base`.
 
-Resultado do treino **reduzido** feito localmente (CPU, 200 exemplos, 1 época, 46 min; a GPU de 4 GB não tinha memória suficiente):
+Resultado do **treino completo** no Google Colab (GPU T4, 439 exemplos, 3 épocas, 548 s), no `conjunto_teste.jsonl` (a execução aparece no vídeo):
 
 | Configuração | Cita a fonte | Números fiéis | F1 | Recusa indevida | Urgências | Recusa correta | Tokens do system |
 |---|---|---|---|---|---|---|---|
 | A. Base + prompt curto | 0% | 50% | 24% | 3% | 0/7 | 1/7 | 8 |
-| B. Base + prompt longo | 59% | 44% | 26% | 3% | 0/7 | 5/7 | 499 |
-| C. LoRA + prompt curto | **86%** | 31% | **29%** | 28% | 1/7 | **6/7** | **8** |
+| B. Base + prompt longo | 59% | 44% | 26% | 3% | 0/7 | 6/7 | 499 |
+| C. LoRA + prompt curto | **93%** | **100%** | **75%** | 7% | **3/7** | **7/7** | **8** |
 
-O LoRA aprendeu a citar a fonte com um system de 8 tokens, mas passou a recusar demais. Nenhuma configuração resolve as urgências, por isso elas são tratadas por regra dura antes do modelo (7/7 na avaliação sem LLM). Sem CONTEXTO, B e C inventavam fontes. Por isso, depois desse treino, entraram no corpus 36 exemplos sem contexto (ainda não retreinados). Detalhes e exemplos de saída estão no relatório e em `notebook/resultados_lora_local/` (log da execução e saídas de A, B e C para cada pergunta de teste).
+Com um system de 8 tokens, o LoRA cita a fonte em 93% das respostas (contra 59% do prompt longo de 499 tokens), copia os números do trecho sem erro e acerta todas as recusas. Os 36 exemplos **sem CONTEXTO**, acrescentados depois do primeiro treino, funcionaram: nas pegadinhas, B inventa valor e fonte, e C responde que não recebeu trecho e não vai arriscar. As urgências melhoraram (3/7: SAMU 192, Bombeiros 193), mas ainda não são confiáveis, por isso continuam tratadas por regra dura antes do modelo (7/7 na avaliação sem LLM).
+
+Antes, um treino **reduzido** na máquina local (CPU, 200 exemplos, 1 época, 46 min, porque a GPU de 4 GB não tinha memória) deu C = 86% de citação, mas 28% de recusa indevida e 1/7 urgências. O log e as saídas desse treino estão em `notebook/resultados_lora_local/`.
 
 ## Estrutura
 
@@ -139,6 +143,6 @@ dados/brutos/              # acervo base (4 leis + guia fictício) e dados/metad
 dados/exemplos_upload/     # exemplos fictícios em DOCX, HTML, PDF e MD (+ gerar_exemplos_upload.py)
 saida/                     # 3 corpus + referência + teste + antes_depois/ + relatorio_execucao.json
 notebook/                  # notebook do pipeline, notebook do LoRA, geradores e executor local
-relatorio/                 # relatório PDF, fonte HTML e roteiro do vídeo
-relatorio/video/           # vídeo de apresentação (MP4 + legendas .srt) e scripts que o geram
+relatorio/                 # relatório PDF, fonte HTML, roteiro do vídeo e roteiro da apresentação
+relatorio/video/           # vídeo de apresentação (video_apresentacao.mp4) e scripts de um vídeo narrado alternativo
 ```

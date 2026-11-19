@@ -297,9 +297,10 @@ from transformers import Trainer, TrainingArguments
 
 lora_cfg = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05, task_type="CAUSAL_LM",
                       target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"])
-# GPU pequena (ex.: 4 GB): lote 1 + acumulação 8 + gradient checkpointing (mesmo lote efetivo de 8)
+# Lote 1 + acumulação 8 + gradient checkpointing (mesmo lote efetivo de 8). O vocabulário do Qwen
+# (151 mil tokens) deixa os logits enormes: com lote 4 nem a T4 de 15 GB aguenta (CUDA out of memory).
 VRAM_GB = torch.cuda.get_device_properties(0).total_memory / 1e9 if DISPOSITIVO == "cuda" else 0
-POUCA_VRAM = VRAM_GB < 10   # também vale para CPU: lote 1 economiza memória
+POUCA_VRAM = VRAM_GB < 30   # T4 (15 GB) e CPU entram aqui
 if POUCA_VRAM:
     model.gradient_checkpointing_enable()
     model.enable_input_require_grads()

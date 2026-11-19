@@ -42,6 +42,8 @@ O teste usa o campo `messages` do `conjunto_teste.jsonl`: o **contexto certo já
 md("## 0. Instalação e GPU")
 code(r"""
 !pip -q install -U transformers peft accelerate
+# O Colab traz um torchao antigo que o peft recusa ("incompatible version of torchao"); o LoRA não usa torchao.
+!pip -q uninstall -y torchao
 import torch, json, re, time, random, os
 from collections import Counter
 print("GPU:", torch.cuda.get_device_name(0) if torch.cuda.is_available() else "NENHUMA — troque o ambiente para GPU T4!")

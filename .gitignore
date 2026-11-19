@@ -9,7 +9,7 @@ venv/
 lora_*/
 cidadaobot_lora/
 cidadaobot_lora.zip
-# resultados gravados na raiz pelo notebook (a cópia versionada fica em notebook/resultados_lora_local/)
+# resultados gravados na raiz pelo notebook
 /resultados_*.json
 
 # Configuração local do editor/assistente
@@ -20,5 +20,3 @@ cidadaobot_lora.zip
 Thumbs.db
 desktop.ini
 
-# Vídeo: arquivos intermediários (slides, áudios e segmentos)
-relatorio/video/_build/

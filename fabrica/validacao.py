@@ -21,7 +21,7 @@ PII_GABARITO = [
     "Rua das Palmeiras", "Jardim Esperança", "01234-567", "98888-7777", "maria.lima78",
     "898 0012 3456 7890", "João Carlos Pereira", "45.678", "2026.000123-4", "josé roberto",
     "José Roberto", "98765432111", "av. brasil 1500", "97777-6666", "BRA2E19", "Carlos Eduardo Souza",
-    # dados/exemplos_upload/* (ver dados/gerar_exemplos_upload.py)
+    # dados/exemplos_upload/*
     "Ana Beatriz Moura", "97654-3210", "ana.moura@example.com", "Rua dos Ipês", "Roberto Alves Nunes",
     "321.654.987-00", "Sebastião Ferreira", "3456-7890", "Luzia Campos", "luzia.campos@example.com",
 ]

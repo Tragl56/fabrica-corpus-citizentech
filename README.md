@@ -83,7 +83,7 @@ assistant: Procure um lugar seguro e alto ... ligue AGORA para a Defesa Civil: 1
 
 **Acervo base** (`dados/brutos/` + `dados/metadados.json`): trechos das Leis 13.460/2017 (usuário do serviço público), 8.078/1990 (CDC), 12.527/2011 (LAI) e 13.709/2018 (LGPD), copiados de planalto.gov.br em 05/11/2026 com o ruído real da coleta, mais um **guia municipal fictício** com dados pessoais falsos.
 
-**Exemplos de upload** (`dados/exemplos_upload/`, gerados por `dados/gerar_exemplos_upload.py`). Todos são **fictícios**, de uma prefeitura inventada, e cada um traz o ruído típico do seu formato:
+**Exemplos de upload** (`dados/exemplos_upload/`). Todos são **fictícios**, de uma prefeitura inventada, e cada um traz o ruído típico do seu formato:
 
 | Arquivo | Formato | Ruído e dados pessoais para testar |
 |---|---|---|
@@ -115,13 +115,13 @@ A busca híbrida (`fabrica/busca.py`) junta dois BM25 por Reciprocal Rank Fusion
 
 ## Bônus (opcional): LoRA
 
-`notebook/Bonus_LoRA_CidadaoBot_Colab.ipynb` (gerado por `notebook/gerar_notebook_lora.py`) segue o roteiro da Aula 21 com Qwen2.5-0.5B-Instruct e LoRA r=16:
+`notebook/Bonus_LoRA_CidadaoBot_Colab.ipynb` segue o roteiro da Aula 21 com Qwen2.5-0.5B-Instruct e LoRA r=16:
 
-1. Treina com `corpus_perguntas_respostas.jsonl` + `corpus_conversacional.jsonl` (403 exemplos), com o system reduzido a uma linha.
+1. Treina com `corpus_perguntas_respostas.jsonl` + `corpus_conversacional.jsonl` (439 exemplos), com o system reduzido a uma linha.
 2. Usa máscara -100 em system e usuário e aprende **todas** as respostas dos diálogos de várias trocas.
 3. Compara **A** (base + prompt curto), **B** (base + prompt longo com regras e exemplos) e **C** (LoRA) no `conjunto_teste.jsonl`, com o contexto certo já recuperado. As métricas são: cita a fonte, números fiéis, F1, recusa indevida, urgências encaminhadas, recusa correta e tokens do system.
 
-No Colab com GPU T4, rode as células em ordem. Fora do Colab, use `notebook/rodar_lora_local.py`, com opções para máquinas fracas: `--dispositivo cpu --epocas 1 --limite 200 --pular-linha-de-base`.
+No Colab, escolha a GPU T4, clique em **Executar tudo** e envie os 3 arquivos de `saida/` que a célula 1 pede (`corpus_perguntas_respostas.jsonl`, `corpus_conversacional.jsonl` e `conjunto_teste.jsonl`).
 
 Resultado do **treino completo** no Google Colab (GPU T4, 439 exemplos, 3 épocas, 548 s), no `conjunto_teste.jsonl` (a execução aparece no vídeo):
 
@@ -133,7 +133,7 @@ Resultado do **treino completo** no Google Colab (GPU T4, 439 exemplos, 3 época
 
 Com um system de 8 tokens, o LoRA cita a fonte em 93% das respostas (contra 59% do prompt longo de 499 tokens), copia os números do trecho sem erro e acerta todas as recusas. Os 36 exemplos **sem CONTEXTO**, acrescentados depois do primeiro treino, funcionaram: nas pegadinhas, B inventa valor e fonte, e C responde que não recebeu trecho e não vai arriscar. As urgências melhoraram (3/7: SAMU 192, Bombeiros 193), mas ainda não são confiáveis, por isso continuam tratadas por regra dura antes do modelo (7/7 na avaliação sem LLM).
 
-Antes, um treino **reduzido** na máquina local (CPU, 200 exemplos, 1 época, 46 min, porque a GPU de 4 GB não tinha memória) deu C = 86% de citação, mas 28% de recusa indevida e 1/7 urgências. O log e as saídas desse treino estão em `notebook/resultados_lora_local/`.
+Antes, um treino **reduzido** na máquina local (CPU, 200 exemplos, 1 época, 46 min, porque a GPU de 4 GB não tinha memória) deu C = 86% de citação, mas 28% de recusa indevida e 1/7 urgências.
 
 ## Estrutura
 
@@ -142,9 +142,9 @@ app.py                     # interface Streamlit (upload → 3 corpus → revis�
 run_pipeline.py            # linha de comando (executar() também é usado pelo app)
 fabrica/                   # leitores, ingestão, limpeza, anonimização, chunking, geração, auditoria, avaliação
 dados/brutos/              # acervo base (4 leis + guia fictício) e dados/metadados.json
-dados/exemplos_upload/     # exemplos fictícios em DOCX, HTML, PDF e MD (+ gerar_exemplos_upload.py)
+dados/exemplos_upload/     # exemplos fictícios em DOCX, HTML, PDF e MD (com .meta.json)
 saida/                     # 3 corpus + referência + teste + antes_depois/ + relatorio_execucao.json
-notebook/                  # notebook do pipeline, notebook do LoRA, geradores e executor local
-relatorio/                 # relatório PDF, fonte HTML, roteiro do vídeo e roteiro da apresentação
-relatorio/video/           # vídeo de apresentação (video_apresentacao.mp4) e scripts de um vídeo narrado alternativo
+notebook/                  # notebook do pipeline e notebook do bônus LoRA (Colab)
+relatorio/                 # relatório em PDF e roteiro da apresentação
+relatorio/video/           # vídeo de apresentação (cópia do YouTube)
 ```
